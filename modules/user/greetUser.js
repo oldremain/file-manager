@@ -7,6 +7,7 @@ export const greetUser = () => {
   const userName = getUserName();
   console.log(`Welcome to the File Manager, ${userName}!`);
 
-  changeDirectory(os.homedir());
+  //TODO uncomment this !!!
+  //changeDirectory(os.homedir());
   printCurrentWorkingDirectory();
 };

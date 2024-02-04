@@ -1,17 +1,22 @@
-import os from "node:os";
-
 import { greetUser } from "./modules/user/greetUser.js";
 import { goodbayUser } from "./modules/user/goodbayUser.js";
-
 import { goUpDirectory } from "./modules/directory/goUpDirectory.js";
 import { goToSpecificDirectory } from "./modules/directory/goToSpecificDirectory.js";
 import { printDirContent } from "./modules/directory/printDirContent.js";
-
 import { catFile } from "./modules/fs/cat.js";
 import { addFile } from "./modules/fs/add.js";
 import { renameFile } from "./modules/fs/rename.js";
 import { moveFile } from "./modules/fs/move.js";
 import { deleteFile } from "./modules/fs/delete.js";
+import {
+  OS,
+  printOsEol,
+  printCpus,
+  printHomeDir,
+  printUserName,
+  printCPUArchitecture,
+} from "./modules/os/index.js";
+import { calcHash } from "./modules/hash/index.js";
 
 import { printCurrentWorkingDirectory } from "./lib/directory.js";
 import { parseCommandLineArgument } from "./lib/args.js";
@@ -32,6 +37,8 @@ process.stdin.on("data", async (input) => {
     goToSpecificDirectory(path);
     printCurrentWorkingDirectory();
   }
+
+  /* File System module */
   if (data.startsWith("ls")) {
     const [path] = parseCommandLineArgument(data);
     await printDirContent(path);
@@ -60,7 +67,49 @@ process.stdin.on("data", async (input) => {
     await deleteFile(path);
     printCurrentWorkingDirectory();
   }
-  //cd ./Downloads/file-manager
+  /* End of File System module */
+
+  /* OS module */
+  if (data.startsWith("os")) {
+    const [arg] = parseCommandLineArgument(data);
+
+    switch (arg.toLowerCase()) {
+      //For autocompletion:)
+      case OS["--eol"]:
+        printOsEol();
+        break;
+      case OS["--cpus"]:
+        printCpus();
+        break;
+      case OS["--homedir"]:
+        printHomeDir();
+        break;
+      case OS["--username"]:
+        printUserName();
+        break;
+      case OS["--architecture"]:
+        printCPUArchitecture();
+        break;
+      default:
+        console.log("Only followed args are allowed ---->", [
+          "--eol",
+          "--cpus",
+          "--homedir",
+          "--username",
+          "--architecture",
+        ]);
+    }
+    printCurrentWorkingDirectory();
+  }
+  /* End of OS module */
+
+  /* Hash module */
+  if (data.startsWith("hash")) {
+    const [path] = parseCommandLineArgument(data);
+    await calcHash(path);
+    printCurrentWorkingDirectory();
+  }
+  /* End of Hash module */
 });
 
 //After program work finished (ctrl + c pressed or user sent .exit command into console) the program displays the following text in the console
