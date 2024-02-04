@@ -15,15 +15,20 @@ export const printCpus = () => {
   const numberFormatter = new Intl.NumberFormat("en", {
     maximumFractionDigits: 1,
   });
-  const cpuSpeed = os.cpus()[0].speed.toString().padEnd(4, "0") / 1000;
+  const getRawCpuSpeed = (speed) => speed.toString().padEnd(4, "0") / 1000;
 
   console.table([
     {
       Quantity: os.cpus().length,
       Name: os.cpus()[0].model,
-      "Speed(GHz)": +numberFormatter.format(cpuSpeed),
     },
   ]);
+
+  console.table(
+    os.cpus().map((it) => ({
+      "Speed(GHz)": +numberFormatter.format(getRawCpuSpeed(it.speed)),
+    }))
+  );
 };
 
 export const printHomeDir = () => console.log(os.homedir());
