@@ -17,6 +17,8 @@ import {
   printCPUArchitecture,
 } from "./modules/os/index.js";
 import { calcHash } from "./modules/hash/index.js";
+import { compressFile } from "./modules/zlib/compress.js";
+import { decompressFile } from "./modules/zlib/decompress.js";
 
 import { printCurrentWorkingDirectory } from "./lib/directory.js";
 import { parseCommandLineArgument } from "./lib/args.js";
@@ -110,6 +112,19 @@ process.stdin.on("data", async (input) => {
     printCurrentWorkingDirectory();
   }
   /* End of Hash module */
+
+  /* Brotli module */
+  if (data.startsWith("compress")) {
+    const [sourcePath, destPath] = parseCommandLineArgument(data);
+    await compressFile(sourcePath, destPath);
+    printCurrentWorkingDirectory();
+  }
+  if (data.startsWith("decompress")) {
+    const [sourcePath, destPath] = parseCommandLineArgument(data);
+    await decompressFile(sourcePath, destPath);
+    printCurrentWorkingDirectory();
+  }
+  /* End of Brotli module */
 });
 
 //After program work finished (ctrl + c pressed or user sent .exit command into console) the program displays the following text in the console

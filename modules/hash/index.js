@@ -2,7 +2,7 @@ import fs from "node:fs";
 import { createHash } from "node:crypto";
 import { getAbsolutePath } from "../../lib/path.js";
 
-export const calcHash = async (path) => {
+export const calcHash = (path) => {
   const filePath = getAbsolutePath(path);
   const hash = createHash("sha256");
   const readStream = fs.createReadStream(filePath, "utf-8");
