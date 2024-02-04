@@ -1,0 +1,23 @@
+{
+  "name": "file-manager",
+  "version": "1.0.0",
+  "description": "This repository is the part of nodejs-assignments https://github.com/AlreadyBored/nodejs-assignments/blob/main/assignments/file-manager/assignment.md",
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/oldremain/file-manager.git"
+  },
+  "author": "phdpixxel",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/oldremain/file-manager/issues"
+  },
+  "homepage": "https://github.com/oldremain/file-manager#readme"
+}
