@@ -22,8 +22,6 @@ export const printDirContent = async (path) => {
           : files.push({ Name: it.name, Type: "file" })
       );
 
-    // console.log(files);
-
     console.table([...folders, ...files]);
   }
 };

@@ -4,10 +4,7 @@ import { changeDirectory } from "../../lib/directory.js";
 import { getUserName } from "../../lib/userName.js";
 
 export const greetUser = () => {
-  const userName = getUserName();
-  console.log(`Welcome to the File Manager, ${userName}!`);
-
-  //TODO uncomment this !!!
-  //changeDirectory(os.homedir());
+  console.log(`Welcome to the File Manager, ${getUserName()}!`);
+  changeDirectory(os.homedir());
   printCurrentWorkingDirectory();
 };

@@ -1,6 +1,6 @@
 import fs from "node:fs";
 import { getAbsolutePath } from "../../lib/path.js";
-import { printCurrentWorkingDirectory } from "../../lib/directory.js";
+import { logExecutionError } from "../../lib/error.js";
 
 export const catFile = async (file) => {
   const filePath = getAbsolutePath(file);
@@ -8,5 +8,9 @@ export const catFile = async (file) => {
 
   readStream.pipe(process.stdout);
 
-  readStream.on("end", () => printCurrentWorkingDirectory());
+  readStream.on("error", logExecutionError);
+
+  return new Promise((resolve) => {
+    readStream.on("end", resolve);
+  });
 };
